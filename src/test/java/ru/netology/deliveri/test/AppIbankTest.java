@@ -1,4 +1,4 @@
-package test;
+package ru.netology.deliveri.test;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
@@ -6,8 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.$;
-import static data.DataGenerator.Registration.getRegisteredUser;
-import static data.DataGenerator.Registration.getUser;
+import static ru.netology.deliveri.data.DataGenerator.Registration.getRegisteredUser;
+import static ru.netology.deliveri.data.DataGenerator.Registration.getUser;
 
 public class AppIbankTest {
 
