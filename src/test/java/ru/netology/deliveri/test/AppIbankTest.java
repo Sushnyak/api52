@@ -2,12 +2,15 @@ package ru.netology.deliveri.test;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.$;
 import static ru.netology.deliveri.data.DataGenerator.Registration.getRegisteredUser;
 import static ru.netology.deliveri.data.DataGenerator.Registration.getUser;
+import static ru.netology.deliveri.data.DataGenerator.getRandomLogin;
+import static ru.netology.deliveri.data.DataGenerator.getRandomPassword;
 
 public class AppIbankTest {
 
@@ -27,7 +30,8 @@ public class AppIbankTest {
     @Test
     void shouldNoSuccessfulLoginIfNoValidLogin() {
         var regUser = getRegisteredUser("active");
-        $("[data-test-id=login] input").setValue("NoValid");
+        var wrongLogin = getRandomLogin();
+        $("[data-test-id=login] input").setValue(wrongLogin);
         $("[data-test-id=password] input").setValue(regUser.getPassword());
         $("[data-test-id=action-login]").click();
         $("[data-test-id=error-notification] .notification__content")
@@ -37,8 +41,9 @@ public class AppIbankTest {
     @Test
     void shouldNoSuccessfulLoginIfNoValidPassword() {
         var regUser = getRegisteredUser("active");
+        var wrongPassword = getRandomPassword();
         $("[data-test-id=login] input").setValue(regUser.getLogin());
-        $("[data-test-id=password] input").setValue("NoValid");
+        $("[data-test-id=password] input").setValue(wrongPassword);
         $("[data-test-id=action-login]").click();
         $("[data-test-id=error-notification] .notification__content")
                 .should(Condition.exactText("Ошибка! Неверно указан логин или пароль"), Condition.visible);
